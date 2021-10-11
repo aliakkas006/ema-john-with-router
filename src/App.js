@@ -5,51 +5,60 @@ import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
 import OrderReview from './components/OrderReview/OrderReview';
 import PlaceOrder from './components/PlaceOrder/PlaceOrder';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Register from './components/Register/Register';
+import Shipping from './components/Shipping/Shipping';
 import Shop from './components/Shop/Shop';
 import SignIn from './components/SignIn/SignIn';
+import AuthProvider from './context/AuthProvider';
 
 function App() {
   return (
     <div>
-      <Router>
-      <Header></Header>
-        <Switch>
+      <AuthProvider>
+        <Router>
+          <Header></Header>
+          <Switch>
 
-          <Route exact path="/">
-            <Shop></Shop>
-          </Route>
+            <Route exact path="/">
+              <Shop></Shop>
+            </Route>
 
-          <Route path="/shop">
-            <Shop />
-          </Route>
+            <Route path="/shop">
+              <Shop />
+            </Route>
 
-          <Route path="/review">
-            <OrderReview />
-          </Route>
+            <Route path="/review">
+              <OrderReview />
+            </Route>
 
-          <Route path="/inventory">
-            <Inventory />
-          </Route>
+            <PrivateRoute path="/inventory">
+              <Inventory />
+            </PrivateRoute>
 
-          <Route path="/placeorder">
-            <PlaceOrder />
-          </Route>
+            <PrivateRoute path="/shipping">
+              <Shipping />
+            </PrivateRoute>
 
-          <Route path="/signin">
-            <SignIn />
-          </Route>
+            <PrivateRoute path="/placeorder">
+              <PlaceOrder />
+            </PrivateRoute>
 
-          <Route path="/register">
-            <Register />
-          </Route>
+            <Route path="/signin">
+              <SignIn />
+            </Route>
 
-          <Route path="*">
-            <NotFound />
-          </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
 
-        </Switch>
-      </Router>
+            <Route path="*">
+              <NotFound />
+            </Route>
+
+          </Switch>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

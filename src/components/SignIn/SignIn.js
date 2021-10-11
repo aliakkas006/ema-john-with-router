@@ -1,14 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 import './SignIn.css'
 
 const SignIn = () => {
+    const { signInUsingGoogle } = useAuth();
+    const location = useLocation();
+    const history = useHistory();
+
+    const redirect_ui = location?.state?.from || '/shop';
+    // console.log('came from', location?.state?.from);
+
+    const handleGoogleSignIn = () => {
+        signInUsingGoogle()
+            .then(result => {
+                history.push(redirect_ui);
+            });
+    }
+
     return (
         <div className="signin-form">
             <div>
                 <h2>Sign-In</h2>
 
-                <form onSubmit="">
+                <form>
                     <input type="email" name="email" id="" placeholder="Enter your email" />
                     <br />
                     <input type="password" name="password" id="" placeholder="Password" />
@@ -22,7 +37,10 @@ const SignIn = () => {
                 </p>
 
                 <div>------------or-------------</div>
-                <button className="btn-regular">Google Sign in</button>
+                <button
+                    className="btn-regular"
+                    onClick={handleGoogleSignIn}
+                >Google Sign in</button>
 
             </div>
         </div>
