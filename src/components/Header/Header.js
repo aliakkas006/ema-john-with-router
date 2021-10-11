@@ -38,6 +38,16 @@ const Header = () => {
                 >
                     Manage Inventory
                 </NavLink>
+
+                <NavLink
+                    to="/signin"
+                    activeStyle={{
+                        fontWeight: "bold",
+                        color: "blue"
+                    }}
+                >
+                    Sign In
+                </NavLink>
                 
             </nav>
         </div>
