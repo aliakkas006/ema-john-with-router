@@ -38,4 +38,8 @@ Step-4: create auth context hook(useAuth)
 Step-5: create private route
 1. create private route
 2. set private route
+---------------------
+Step-6: Redirect after log in
+1. after log in redirect user to their desired destination.
+
 */
