@@ -8,17 +8,23 @@ import { Link } from 'react-router-dom';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    // products to be rendered on the UI
+    const [page, setPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
     const [displayProducts, setDisplayProducts] = useState([]);
 
+    const size = 10;
     useEffect(() => {
-        fetch('./products.json')
+        fetch(`http://localhost:5000/products?page=${page}&&size=${size}`)
             .then(res => res.json())
             .then(data => {
-                setProducts(data);
-                setDisplayProducts(data);
+                setProducts(data.products);
+                setDisplayProducts(data.products);
+
+                const count = data.count;
+                const pageNumber = Math.ceil(count / size);
+                setPageCount(pageNumber);
             });
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         if (products.length) {
@@ -69,6 +75,7 @@ const Shop = () => {
                     onChange={handleSearch}
                     placeholder="Search Product" />
             </div>
+
             <div className="shop-container">
                 <div className="product-container">
                     {
@@ -79,7 +86,18 @@ const Shop = () => {
                         >
                         </Product>)
                     }
+                    <div className="pagination">
+                        {
+                            [...Array(pageCount).keys()]
+                                .map(number => <button
+                                    className={number === page ? 'selected' : ''}
+                                    key={number}
+                                    onClick={() => setPage(number)}
+                                >{number + 1}</button>)
+                        }
+                    </div>
                 </div>
+
                 <div className="cart-container">
                     <Cart cart={cart}>
                         <Link to="/review">

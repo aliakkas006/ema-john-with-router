@@ -15,3 +15,17 @@
     margin-right: 5px;
     margin-left: 50px;
 }
+
+.pagination{
+    margin: 30px;
+}
+
+.pagination button{
+    padding: 3px 10px;
+    margin-right: 20px;
+}
+
+.pagination .selected{
+    background-color: rgb(44, 44, 116);
+    color: white;
+}
